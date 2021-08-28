@@ -8,6 +8,6 @@
     </select>
     <insert id="saveUser"
             parameterType="com.gg.itbook.modules.user.User">
-        insert into user（ail,password)  values(#{email},#{password});
+        insert into user(email,password)  values(#{email},#{password});
     </insert>
 </mapper>

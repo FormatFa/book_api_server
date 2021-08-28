@@ -9,7 +9,9 @@ import com.gg.itbook.modules.user.UserService;
 import com.gg.itbook.modules.user.dto.LoginDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
