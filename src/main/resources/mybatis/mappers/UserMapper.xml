@@ -10,4 +10,8 @@
             parameterType="com.gg.itbook.modules.user.User">
         insert into user(email,password)  values(#{email},#{password});
     </insert>
+    <update id="updateCoin"
+    >
+        update user set coin = #{coin} where email=#{email}
+    </update>
 </mapper>

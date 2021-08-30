@@ -7,5 +7,7 @@ public interface UserService {
     void registerUserByEmail(String email,String password);
     LoginDTO findUserByEmail(String email);
     LoginDTO login(String email, String password);
+    int  charge(String email,int addCoin);
+    int  useCoin(String email,int coin);
 
 }

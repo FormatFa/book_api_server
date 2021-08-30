@@ -34,6 +34,8 @@ public class UserServiceImplTest {
         testUser = new User();
         testUser.setEmail("test@qq.com");
         testUser.setPassword(SecurityTool.hashPassword("123"));
+        testUser.setCoin(100);
+
         Mockito.doReturn(testUser).when(userMapper).findUserByEmail("test@qq.com");
     }
     @TestConfiguration
@@ -73,9 +75,18 @@ public class UserServiceImplTest {
         LoginDTO userDto = userService.login("test@qq.com","123");
         assertNotNull(userDto,"login dto shouldn't null");
         assertEquals("test@qq.com", userDto.getEmail());
+        assertEquals(100,userDto.getCoin());
+
     }
     @Test
     public void givenCredentials_whenNotMatch_thenThrows() {
         assertThrows(IdentityErrorException.class,()->userService.login("test@qq.com","12311"));
+    }
+    @Test
+    public void testCharge() {
+
+    }
+    @Test void testUseCoin() {
+
     }
 }

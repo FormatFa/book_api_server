@@ -4,8 +4,17 @@ public class LoginDTO {
     private int id;
     private String email;
     private String nickname;
+    private int coin;
 
     public LoginDTO() {
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
     }
 
     public int getId() {

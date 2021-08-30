@@ -7,8 +7,17 @@ public class User {
     private int sex;
     private String avatar_url;
     private String open_id;
+    private int coin;
 
     public User() {
+    }
+
+    public int getCoin() {
+        return coin;
+    }
+
+    public void setCoin(int coin) {
+        this.coin = coin;
     }
 
     public String getEmail() {

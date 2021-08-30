@@ -1,5 +1,6 @@
 package com.gg.itbook.modules.user.impl;
 
+import com.gg.itbook.common.exception.BalanceInSufficientException;
 import com.gg.itbook.common.exception.IdentityErrorException;
 import com.gg.itbook.common.exception.UserExistsException;
 import com.gg.itbook.common.util.SecurityTool;
@@ -51,6 +52,27 @@ public class UserServiceImpl implements UserService {
         }
         LoginDTO userDto = modelMapper.map(user, LoginDTO.class);
         return userDto;
+    }
+
+//    TODO transaction process
+    @Override
+    public int charge(String email, int addCoin) {
+        LoginDTO login = findUserByEmail(email);
+        int newCoin = login.getCoin()+addCoin;
+        this.userMapper.updateCoin(email,newCoin);
+        return newCoin;
+    }
+
+    // TODO add cost record
+    @Override
+    public int useCoin(String email, int coin) {
+        LoginDTO login = findUserByEmail(email);
+        if(login.getCoin()<coin){
+            throw new BalanceInSufficientException(coin, login.getCoin());
+        }
+        int newCoin = login.getCoin()-coin;
+        this.userMapper.updateCoin(email,newCoin);
+        return newCoin;
     }
 
 }
