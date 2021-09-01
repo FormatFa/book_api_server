@@ -3,14 +3,21 @@ package com.gg.itbook.modules.user.impl;
 import com.gg.itbook.common.exception.BalanceInSufficientException;
 import com.gg.itbook.common.exception.IdentityErrorException;
 import com.gg.itbook.common.exception.UserExistsException;
+import com.gg.itbook.common.exception.UserNotFoundException;
 import com.gg.itbook.common.util.SecurityTool;
 import com.gg.itbook.modules.user.User;
 import com.gg.itbook.modules.user.UserMapper;
 import com.gg.itbook.modules.user.UserService;
 import com.gg.itbook.modules.user.dto.LoginDTO;
+import com.gg.itbook.modules.user.dto.UseCoinDTO;
+import com.gg.itbook.modules.user.vo.Coin;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -44,6 +51,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public LoginDTO findUserById(int user_id) {
+        User user =  userMapper.findUserById(user_id);
+        if(Objects.isNull(user)){
+            throw new UserNotFoundException(String.valueOf(user_id));
+        }
+        LoginDTO userDto = modelMapper.map(user, LoginDTO.class);
+        return userDto;
+    }
+
+    @Override
     public LoginDTO login(String email, String password) {
 //        TODO filter sql injection
         User user = userMapper.findUserByEmail(email);
@@ -56,23 +73,26 @@ public class UserServiceImpl implements UserService {
 
 //    TODO transaction process
     @Override
-    public int charge(String email, int addCoin) {
-        LoginDTO login = findUserByEmail(email);
+    public int charge(int user_id, int addCoin) {
+        LoginDTO login = findUserById(user_id);
         int newCoin = login.getCoin()+addCoin;
-        this.userMapper.updateCoin(email,newCoin);
+        this.userMapper.updateCoin(user_id,newCoin);
         return newCoin;
     }
 
+
     // TODO add cost record
+    @Transactional(propagation = Propagation.MANDATORY)
     @Override
-    public int useCoin(String email, int coin) {
-        LoginDTO login = findUserByEmail(email);
+    public UseCoinDTO useCoin(int  user_id, int coin) {
+        LoginDTO login = findUserById(user_id);
         if(login.getCoin()<coin){
             throw new BalanceInSufficientException(coin, login.getCoin());
         }
         int newCoin = login.getCoin()-coin;
-        this.userMapper.updateCoin(email,newCoin);
-        return newCoin;
+        this.userMapper.updateCoin(user_id,newCoin);
+        login = findUserById(user_id);
+        return new UseCoinDTO(Coin.from(login.getCoin()));
     }
 
 }

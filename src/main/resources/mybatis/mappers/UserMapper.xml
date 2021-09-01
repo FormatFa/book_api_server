@@ -4,7 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.itbook.modules.user.UserMapper">
     <select id="findUserByEmail" resultType="com.gg.itbook.modules.user.User">
-        select * from user limit 1
+        select * from user where email=#{email} limit 1
+    </select>
+    <select id="findUserById" resultType="com.gg.itbook.modules.user.User">
+        select * from user where id=#{user_id} limit 1
     </select>
     <insert id="saveUser"
             parameterType="com.gg.itbook.modules.user.User">
@@ -12,6 +15,6 @@
     </insert>
     <update id="updateCoin"
     >
-        update user set coin = #{coin} where email=#{email}
+        update user set coin = #{coin} where id=#{user_id}
     </update>
 </mapper>

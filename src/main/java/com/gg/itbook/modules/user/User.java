@@ -1,6 +1,7 @@
 package com.gg.itbook.modules.user;
 
 public class User {
+    private int id;
     private String email;
     private String password;
     private String nickname;
@@ -10,6 +11,14 @@ public class User {
     private int coin;
 
     public User() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCoin() {

@@ -5,6 +5,7 @@ book
 	- category
 	- status 
 	- word_count
+	- chapter_count
 
 book_tags 书本标签
 
@@ -39,3 +40,30 @@ book_category
 route:
 
 - 查找所有分类
+
+
+
+
+搜索：
+- 通过书名，作者，关键词搜索
+
+
+书本章节: 
+book_chapter:
+book-id:
+chapter
+chapter - title
+content: 
+
+
+
+已购买的章节表:
+book_bought
+book_id chapter_id buy_time cost balance
+
+
+
+
+
+goumai
+- 检查余额，修改购买信息，减少余额

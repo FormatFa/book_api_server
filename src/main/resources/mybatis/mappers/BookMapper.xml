@@ -6,4 +6,8 @@
     <select id="findBooksByCategory" resultType="Book">
         select * from book where category in (select id from book_category where parent_id=#{category_id}) ;
     </select>
+    <select id="findChaptersByBookId" resultType="Chapter">
+        select * from book_chapter where book_id=#{bookId};
+    </select>
+
 </mapper>

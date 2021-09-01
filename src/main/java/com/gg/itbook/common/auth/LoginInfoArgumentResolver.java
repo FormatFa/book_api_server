@@ -1,5 +1,6 @@
 package com.gg.itbook.common.auth;
 
+import com.gg.itbook.common.exception.UnAuthenticationException;
 import com.gg.itbook.modules.user.UserService;
 import com.gg.itbook.modules.user.dto.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class LoginInfoArgumentResolver implements HandlerMethodArgumentResolver 
         // set from jwt interceptor
         String email = (String) webRequest.getAttribute(IDENTITY_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);
         if(email==null){
-
+            throw new UnAuthenticationException("");
         }
         LoginDTO user = userService.findUserByEmail(email);
         LoginInfo  info = new LoginInfo(user);
