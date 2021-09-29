@@ -7,8 +7,12 @@ public class User {
     private String nickname;
     private int sex;
     private String avatar_url;
-    private String open_id;
+    private String openid;
     private int coin;
+
+    public User(String openid) {
+        this.openid = openid;
+    }
 
     public User() {
     }
@@ -69,11 +73,11 @@ public class User {
         this.avatar_url = avatar_url;
     }
 
-    public String getOpen_id() {
-        return open_id;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setOpen_id(String open_id) {
-        this.open_id = open_id;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

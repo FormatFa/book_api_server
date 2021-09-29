@@ -39,13 +39,7 @@ public class BookServiceTest {
             return mapper;
         }
     }
-    @Test
-    public void given_whenAddBuyRecordException_CoinShouldNotCost() {
 
-
-
-
-    }
 
 
 

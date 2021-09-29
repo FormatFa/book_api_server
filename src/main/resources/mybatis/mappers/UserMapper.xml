@@ -9,12 +9,15 @@
     <select id="findUserById" resultType="com.gg.itbook.modules.user.User">
         select * from user where id=#{user_id} limit 1
     </select>
+    <select id="findUserByOpenId" resultType="com.gg.itbook.modules.user.User">
+        select * from user where openid=#{openid} limit 1
+    </select>
+
     <insert id="saveUser"
             parameterType="com.gg.itbook.modules.user.User">
-        insert into user(email,password)  values(#{email},#{password});
+        insert into user(openid,email,password)  values(#{openid},#{email},#{password});
     </insert>
-    <update id="updateCoin"
-    >
+    <update id="updateCoin">
         update user set coin = #{coin} where id=#{user_id}
     </update>
 </mapper>

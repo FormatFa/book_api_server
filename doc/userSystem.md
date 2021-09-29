@@ -52,3 +52,16 @@ jwt body
 
 - 充值记录表
 - 消费记录
+
+
+
+
+
+微信登录:
+- 小程序发送code
+- code get openid
+- according openid , create or login user
+
+- fahui session key
+
+

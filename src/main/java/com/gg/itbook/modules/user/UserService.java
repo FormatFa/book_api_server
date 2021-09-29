@@ -8,6 +8,7 @@ public interface UserService {
     void registerUserByEmail(String email,String password);
     LoginDTO findUserByEmail(String email);
     LoginDTO findUserById(int user_id);
+
     LoginDTO login(String email, String password);
     int  charge(int  user_id,int addCoin);
     UseCoinDTO useCoin(int  user_id, int coin);

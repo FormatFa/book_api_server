@@ -54,17 +54,5 @@ public class JwtInterceptorTest {
                 .andExpect(jsonPath("$.email").value("test@qq.com"))
         .andExpect(jsonPath("$.nickname").exists());
     }
-    @Test
-    public void testContextLoads() throws Exception {
-        assertNotNull(userController);
-        LoginByEmailReq req = new LoginByEmailReq("test@qq.com","123");
 
-        mockMvc.perform(post("/user/login").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").exists())
-                .andExpect(jsonPath("$.user").exists())
-                .andExpect(jsonPath("$.user.email").value(req.getEmail()));
-
-
-    }
 }

@@ -10,6 +10,7 @@ public interface UserMapper {
     void save();
     void update();
     User findUserByEmail(String email);
+    User findUserByOpenId(String openid);
     User findUserById(int user_id);
     void saveUser(User user);
     void updateCoin(@Param("user_id") int user_id, @Param("coin") int coin);
