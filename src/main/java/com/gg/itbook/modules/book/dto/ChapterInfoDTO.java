@@ -5,6 +5,15 @@ public class ChapterInfoDTO {
     private Long chapter_id;
     private int price;
     private String content;
+    private boolean lock;
+
+    public boolean isLock() {
+        return lock;
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
+    }
 
     public String getContent() {
         return content;

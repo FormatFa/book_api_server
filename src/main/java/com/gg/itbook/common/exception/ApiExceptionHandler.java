@@ -17,6 +17,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResult.error(ex.getMessage(),null));
     }
 
+    @ExceptionHandler(value = {UnAuthenticationException.class})
+    protected ResponseEntity<ApiResponse> handleUnAuthenticationException(RuntimeException ex,WebRequest request) {
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResult.error("unauthentication",ex.getMessage()));
+    }
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResult.error(ex.getMessage(),null));

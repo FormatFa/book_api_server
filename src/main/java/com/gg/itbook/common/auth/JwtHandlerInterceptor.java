@@ -31,10 +31,10 @@ public class JwtHandlerInterceptor  implements HandlerInterceptor {
         }
         jws = jws.replace(TOKEN_PREFIX,"");
         try {
-                String user = JWTool.parseJwtSubject(jws);
+                Integer user =Integer.parseInt(JWTool.parseJwtSubject(jws));
                 request.setAttribute(IDENTITY_ATTRIBUTE,user);
         }
-        catch (JwtException e) {
+        catch (Exception e) {
 //            TODO real ip
             LOGGER.info(String.format("found invalid jwt: %s",jws));
             throw new UnAuthenticationException(request.getRemoteAddr());

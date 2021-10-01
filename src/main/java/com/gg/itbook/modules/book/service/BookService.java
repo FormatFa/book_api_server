@@ -9,9 +9,12 @@ import com.gg.itbook.modules.user.vo.Coin;
 import java.util.List;
 
 public interface BookService {
+    Book getBookById(int book_id);
     List<BookCategory> getAllCategories();
     List<Book> getBooksByCategory(int category);
     List<ChapterInfoDTO> getChaptersByBookId(int bookId);
+    List<ChapterInfoDTO> getUserChaptersByBookId(int user_id,int bookId);
+
     ChapterInfoDTO getChapterContent(int user_id,int book_id,int chapter_id);
 
     List<BuyRecordDTO> getBuyRecordByBookId(int user_id,int bookId);

@@ -17,4 +17,7 @@ public class LoginInfo {
     public void setUserDTO(LoginDTO userDTO) {
         this.userDTO = userDTO;
     }
+    public int getUserId() {
+        return userDTO.getId();
+    }
 }

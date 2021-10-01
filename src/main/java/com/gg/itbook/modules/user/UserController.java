@@ -3,6 +3,8 @@ package com.gg.itbook.modules.user;
 import com.gg.itbook.common.auth.LoginInfo;
 import com.gg.itbook.common.auth.MyLoginInfo;
 import com.gg.itbook.common.auth.NeedAuth;
+import com.gg.itbook.common.response.ApiResponse;
+import com.gg.itbook.common.response.ApiResult;
 import com.gg.itbook.common.util.JWTool;
 import com.gg.itbook.modules.user.dto.LoginDTO;
 import com.gg.itbook.modules.user.request.LoginByEmailReq;
@@ -33,7 +35,7 @@ public class UserController {
     @PostMapping("/loginByWeChat")
     public WeChatLoginResponse loginByWeChat( @RequestBody  LoginByWechatReq req) throws IOException, URISyntaxException {
            LoginDTO loginDTO =  this.weChatUserService.loginOrRegisterByWeChat(req.getCode());
-           String jws = JWTool.generateJwt(loginDTO.getOpenid());
+           String jws = JWTool.generateJwt(String.valueOf(loginDTO.getId()));
            return new WeChatLoginResponse(jws,modelMapper.map(loginDTO, ProfileResponse.class));
     }
 
@@ -41,12 +43,11 @@ public class UserController {
     public void registerUserByEmail(@RequestBody RegisterByEmailDTO param) {
         // TODO check form whether valid
         userService.registerUserByEmail(param.getEmail(),param.getPassword());
-
     }
     @PostMapping("/login")
     public  LoginResponse loginByEmail(@RequestBody LoginByEmailReq loginReq){
         LoginDTO login = userService.login(loginReq.getEmail(), loginReq.getPassword());
-        String jws = JWTool.generateJwt(login.getEmail());
+        String jws = JWTool.generateJwt(String.valueOf(login.getId()));
 
         LoginResponse response = new LoginResponse(jws,modelMapper.map(login, ProfileResponse.class));
         return response;
@@ -54,8 +55,9 @@ public class UserController {
 
     @NeedAuth
     @GetMapping("/profile")
-    public com.gg.itbook.modules.user.response.ProfileResponse getUserProfile(@MyLoginInfo LoginInfo loginInfo) {
-        return modelMapper.map(loginInfo.getUserDTO(), com.gg.itbook.modules.user.response.ProfileResponse.class);
+    public ApiResponse<com.gg.itbook.modules.user.response.ProfileResponse> getUserProfile(@MyLoginInfo LoginInfo loginInfo) {
+        return ApiResult.success(modelMapper.map(loginInfo.getUserDTO(), com.gg.itbook.modules.user.response.ProfileResponse.class));
     }
+
 
 }

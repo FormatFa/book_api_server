@@ -2,16 +2,14 @@ package com.gg.itbook.modules.book.impl;
 
 import com.gg.itbook.common.exception.BalanceInSufficientException;
 import com.gg.itbook.common.exception.BusinessException;
+import com.gg.itbook.common.exception.EntityNotFoundException;
 import com.gg.itbook.modules.book.dto.BuyRecordDTO;
 import com.gg.itbook.modules.book.dto.ChapterInfoDTO;
 import com.gg.itbook.modules.book.mapper.BookMapper;
 import com.gg.itbook.modules.book.mapper.BuyRecordMapper;
-import com.gg.itbook.modules.book.model.Book;
-import com.gg.itbook.modules.book.model.BuyRecord;
-import com.gg.itbook.modules.book.model.Chapter;
+import com.gg.itbook.modules.book.model.*;
 import com.gg.itbook.modules.book.service.BookService;
 import com.gg.itbook.modules.book.mapper.BookCategoryMapper;
-import com.gg.itbook.modules.book.model.BookCategory;
 import com.gg.itbook.modules.user.UserService;
 import com.gg.itbook.modules.user.dto.LoginDTO;
 import com.gg.itbook.modules.user.dto.UseCoinDTO;
@@ -46,6 +44,11 @@ public class BookServiceImpl implements BookService {
     private UserService userService;
 
     @Override
+    public Book getBookById(int book_id) {
+        return bookMapper.findBookById(book_id);
+    }
+
+    @Override
     public List<BookCategory> getAllCategories() {
         return bookCategoryMapper.getAllCategories();
     }
@@ -62,12 +65,29 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<ChapterInfoDTO> getUserChaptersByBookId(int user_id, int bookId) {
+        List<UserChapter> chapters  = bookMapper.findUserChaptersByBookId(user_id, bookId);
+        return chapters.stream().map(chapter->modelMapper.map(chapter,ChapterInfoDTO.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public ChapterInfoDTO getChapterContent(int user_id, int book_id, int chapter_id) {
-        BuyRecord buyRecord =  buyRecordMapper.findBuyRecordByBookAndChapter(user_id,book_id,chapter_id);
-        if(Objects.isNull(buyRecord)){
-            throw new BusinessException("chapter is lock");
+        // TODO 小说内容直接检索出来，在是lock的时候，是不是浪费
+        Chapter chapter =  this.bookMapper.getChapterContentById(book_id,chapter_id);
+        if(Objects.isNull(chapter)) {
+            throw new EntityNotFoundException("chapter",String.valueOf(book_id)+"-"+String.valueOf(chapter_id));
         }
-        return this.getChapterByChapterId(user_id,book_id,chapter_id);
+        ChapterInfoDTO info = modelMapper.map(chapter,ChapterInfoDTO.class);
+        info.setLock(false);
+        if(info.getPrice()>0) {
+            BuyRecord buyRecord = buyRecordMapper.findBuyRecordByBookAndChapter(user_id, book_id, chapter_id);
+            if (Objects.isNull(buyRecord)) {
+//                throw new BusinessException("chapter is lock");
+                info.setLock(true);
+                info.setContent(null);
+            }
+        }
+        return info;
     }
 
 

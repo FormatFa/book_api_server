@@ -5,7 +5,6 @@ public class Chapter {
     private Long chapter_id;
     private String content;
     private int price;
-
     public Chapter() {
     }
 

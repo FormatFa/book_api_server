@@ -4,6 +4,15 @@ public class ChapterInfoResponse {
     private Long book_id;
     private Long chapter_id;
     private int price;
+    private boolean lock;
+
+    public boolean isLock() {
+        return lock;
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
+    }
 
     public ChapterInfoResponse() {
     }

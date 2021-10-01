@@ -3,7 +3,7 @@ package com.gg.itbook.common.response;
 import lombok.Data;
 
 @Data
-public class ApiResponse {
+public class ApiResponse<T> {
 
     private ApiStatus status;
     private String message;

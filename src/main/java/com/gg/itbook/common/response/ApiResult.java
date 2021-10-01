@@ -1,8 +1,11 @@
 package com.gg.itbook.common.response;
 
 public class ApiResult {
-    public static ApiResponse success(Object data) {
+    public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse(ApiStatus.SUCCESS,data);
+    }
+    public static <T> ApiResponse<T> successOnly() {
+        return new ApiResponse(ApiStatus.SUCCESS,null);
     }
 
     public static ApiResponse fail(Object data) {

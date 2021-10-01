@@ -7,6 +7,8 @@
         <typeAlias type="com.gg.itbook.modules.book.model.BookCategory" alias="BookCategory"/>
         <typeAlias type="com.gg.itbook.modules.book.model.Book" alias="Book"/>
         <typeAlias type="com.gg.itbook.modules.book.model.Chapter" alias="Chapter"/>
+        <typeAlias type="com.gg.itbook.modules.book.model.UserChapter" alias="UserChapter"/>
         <typeAlias type="com.gg.itbook.modules.book.model.BuyRecord" alias="BuyRecord"/>
+        <typeAlias type="com.gg.itbook.modules.shelf.ShelfItem" alias="ShelfItem"/>
     </typeAliases>
 </configuration>
