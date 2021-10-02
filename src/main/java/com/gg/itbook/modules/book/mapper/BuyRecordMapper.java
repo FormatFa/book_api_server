@@ -10,6 +10,7 @@ import java.util.List;
 public interface BuyRecordMapper {
 
     List<BuyRecord> findBuyRecordByBookId(@Param("user_id") int user_id, @Param("book_id") int book_id);
+    List<BuyRecord> findUserBuyRecord(int user_id);
     BuyRecord findBuyRecordByBookAndChapter(@Param("user_id") int user_id, @Param("book_id") int book_id,@Param("chapter_id" ) int chapter_id);
     void addBuyRecord(BuyRecord buyRecord);
 }

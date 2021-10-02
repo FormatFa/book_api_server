@@ -9,9 +9,11 @@
     <select id="findBuyRecordByBookAndChapter" resultType="BuyRecord">
         select * from buy_record where user_id=#{user_id} and book_id=#{book_id} and chapter_id=#{chapter_id};
     </select>
-
+<select id="findUserBuyRecord" resultType="BuyRecord">
+    select * from buy_record where user_id=#{user_id};
+</select>
 <insert id="addBuyRecord" parameterType="BuyRecord">
-    insert into buy_record(user_id,book_id,chapter_id,cost,balance) values
-    (#{user_id},#{book_id},#{chapter_id},#{cost},#{balance});
+    insert into buy_record(user_id,book_id,chapter_id,cost,balance,summary,buy_time) values
+    (#{user_id},#{book_id},#{chapter_id},#{cost},#{balance},#{summary},now());
 </insert>
 </mapper>

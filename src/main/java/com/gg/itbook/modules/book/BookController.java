@@ -9,6 +9,7 @@ import com.gg.itbook.common.response.ApiResult;
 import com.gg.itbook.modules.book.dto.BuyRecordDTO;
 import com.gg.itbook.modules.book.dto.ChapterInfoDTO;
 import com.gg.itbook.modules.book.model.Book;
+import com.gg.itbook.modules.book.model.BuyRecord;
 import com.gg.itbook.modules.book.response.BuyChapterResponse;
 import com.gg.itbook.modules.book.response.ChapterContentResponse;
 import com.gg.itbook.modules.book.response.ChapterInfoResponse;
@@ -52,9 +53,18 @@ public class BookController {
         return ApiResult.success(bookService.getUserChaptersByBookId(loginInfo.getUserId(),bookId).stream().map(chapter->modelMapper.map(chapter,ChapterInfoResponse.class)).collect(Collectors.toList()));
     }
 
+
+    //    获取消费记录
+    @NeedAuth
+    @GetMapping("/buy_records")
+    public ApiResponse<List<BuyRecord>> getBuyRecords(@MyLoginInfo LoginInfo loginInfo) {
+
+        return ApiResult.success(bookService.getUserBuyRecord(loginInfo.getUserId()));
+    }
+
     @NeedAuth
     @GetMapping("/{bookId}/bought")
-    public List<BuyRecordDTO> getBuyRecordByBookId(@PathVariable int bookId, @MyLoginInfo LoginInfo loginInfo) {
+    public List<BuyRecord> getBuyRecordByBookId(@PathVariable int bookId, @MyLoginInfo LoginInfo loginInfo) {
          return  bookService.getBuyRecordByBookId(loginInfo.getUserDTO().getId(), bookId);
     }
 

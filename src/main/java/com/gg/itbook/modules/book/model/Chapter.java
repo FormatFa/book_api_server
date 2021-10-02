@@ -5,6 +5,16 @@ public class Chapter {
     private Long chapter_id;
     private String content;
     private int price;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Chapter() {
     }
 

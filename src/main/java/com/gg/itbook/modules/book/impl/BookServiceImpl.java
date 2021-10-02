@@ -93,9 +93,15 @@ public class BookServiceImpl implements BookService {
 
 
 
+//    TODO 分页处理
     @Override
-    public List<BuyRecordDTO> getBuyRecordByBookId(int user_id,int bookId) {
-        return  buyRecordMapper.findBuyRecordByBookId(user_id,bookId).stream().map(record->modelMapper.map(record,BuyRecordDTO.class)).collect(Collectors.toList());
+    public List<BuyRecord> getBuyRecordByBookId(int user_id,int bookId) {
+        return  buyRecordMapper.findBuyRecordByBookId(user_id,bookId);
+    }
+
+    @Override
+    public List<BuyRecord> getUserBuyRecord(int user_id) {
+        return buyRecordMapper.findUserBuyRecord(user_id);
     }
 
 
@@ -116,8 +122,10 @@ public class BookServiceImpl implements BookService {
             if(login.getCoin()<chapter.getPrice()){
                 throw new BalanceInSufficientException(chapter.getPrice(), login.getCoin());
             }
+            Book book = getBookById(book_id);
             UseCoinDTO useCoinDTO =  userService.useCoin(user_id,chapter.getPrice());
-            buyRecordMapper.addBuyRecord(new BuyRecord(user_id,book_id,chapter_id, Timestamp.from(Instant.now()),chapter.getPrice(),useCoinDTO.getBalance().getCoin()));
+            String summary = String.format("%s-%s",book.getName(),chapter.getTitle());
+            buyRecordMapper.addBuyRecord(new BuyRecord(user_id,book_id,chapter_id, Timestamp.from(Instant.now()),chapter.getPrice(),useCoinDTO.getBalance().getCoin(),summary));
             return  useCoinDTO.getBalance();
 
     }

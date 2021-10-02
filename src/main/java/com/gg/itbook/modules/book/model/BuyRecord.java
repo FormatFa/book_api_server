@@ -1,5 +1,7 @@
 package com.gg.itbook.modules.book.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Timestamp;
 
 /**
@@ -18,11 +20,22 @@ public class BuyRecord {
 
     private int book_id;
     private int chapter_id;
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Timestamp buy_time;
     private int cost;
     private int balance;
+    private String summary;
 
-    public BuyRecord( int user_id, int book_id, int chapter_id, Timestamp buy_time, int cost, int balance) {
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public BuyRecord(int user_id, int book_id, int chapter_id, Timestamp buy_time, int cost, int balance,String summary) {
 
         this.user_id = user_id;
         this.book_id = book_id;
@@ -30,6 +43,7 @@ public class BuyRecord {
         this.buy_time = buy_time;
         this.cost = cost;
         this.balance = balance;
+        this.summary = summary;
     }
 
 
