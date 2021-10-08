@@ -5,6 +5,15 @@ public class ChapterInfoResponse {
     private Long chapter_id;
     private int price;
     private boolean lock;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public boolean isLock() {
         return lock;
