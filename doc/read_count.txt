@@ -1,0 +1,12 @@
+阅读点击量设计:
+两个小时内同一用户点击的同一本书算一个
+
+定时将redis的数据同步到mysql。
+
+key设计：
+book:book_id:view_count 1
+
+0点时执行任务，持久化到mysql中
+
+
+

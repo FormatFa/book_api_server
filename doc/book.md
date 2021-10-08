@@ -67,3 +67,10 @@ book_id chapter_id buy_time cost balance
 
 goumai
 - 检查余额，修改购买信息，减少余额
+
+
+书本集合：
+用于新书，热门等的集合。
+book_collection:
+id  集合id字符串 primary_key
+book_id 属于集合的书本 primary_key
