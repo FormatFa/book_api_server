@@ -72,8 +72,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ChapterInfoDTO getChapterContent(int user_id, int book_id, int chapter_id) {
-        // TODO 小说内容直接检索出来，在是lock的时候，是不是浪费
-        Chapter chapter =  this.bookMapper.getChapterContentById(book_id,chapter_id);
+
+        Chapter chapter =  this.bookMapper.getChapterById(book_id,chapter_id);
         if(Objects.isNull(chapter)) {
             throw new EntityNotFoundException("chapter",String.valueOf(book_id)+"-"+String.valueOf(chapter_id));
         }
@@ -86,6 +86,12 @@ public class BookServiceImpl implements BookService {
                 info.setLock(true);
                 info.setContent(null);
             }
+        }
+        if(!info.isLock()) {
+            info.setContent(
+                   Optional.ofNullable(bookMapper.getChapterContent(book_id,chapter_id)).map(
+                           Content::getContent
+                   ).orElse(null));
         }
         return info;
     }

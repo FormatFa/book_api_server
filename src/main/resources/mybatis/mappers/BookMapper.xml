@@ -3,17 +3,28 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gg.itbook.modules.book.mapper.BookMapper">
+    <sql id="chapter">
+        book_id,chapter_id,price,title
+    </sql>
     <select id="findBooksByCategory" resultType="Book">
         select * from book where category in (select id from book_category where parent_id=#{category_id}) ;
     </select>
     <select id="findChaptersByBookId" resultType="Chapter">
-        select book_id,chapter_id,price from book_chapter where book_id=#{bookId};
+        select
+        <include refid="chapter"/>
+        from book_chapter where book_id=#{bookId};
     </select>
-    <select id="getChapterContentById" resultType="Chapter">
-        select book_id,chapter_id,price,content from book_chapter where book_id=#{book_id} and chapter_id=#{chapter_id} limit 1;
+    <select id="getChapterById" resultType="Chapter">
+        select
+        <include refid="chapter"/>
+        from book_chapter where book_id=#{book_id} and chapter_id=#{chapter_id} limit 1;
+    </select>
+    <select id="getChapterContent" resultType="com.gg.itbook.modules.book.model.Content">
+        select book_id,chapter_id,content from content where book_id=#{book_id} and chapter_id=#{chapter_id}
     </select>
     <select id="findUserChaptersByBookId" resultType="UserChapter">
-        SELECT c.chapter_id,c.price, case   when (r.user_id is null and c.price>0) then true else false end as "lock"
+        SELECT
+        c.book_id,c.chapter_id,c.title,c.price ,case   when (r.user_id is null and c.price>0) then true else false end as "lock"
         FROM book_chapter c  left join
         (select * from buy_record where user_id=#{user_id}) r
         on c.chapter_id=r.chapter_id and c.book_id=r.book_id
