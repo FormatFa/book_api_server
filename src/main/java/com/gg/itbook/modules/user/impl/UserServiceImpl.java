@@ -40,6 +40,8 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(SecurityTool.hashPassword(password));
+        user.setCoin(99999);
+
         userMapper.saveUser(user);
     }
 

@@ -53,6 +53,7 @@ public class WeChatUserServiceImpl implements WeChatUserService {
         }
         logger.info("save wechat user , openid:"+response.getOpenid());
         User user = new User(response.getOpenid());
+        user.setCoin(99999);
         userMapper.saveUser(user);
         LoginDTO userDto = modelMapper.map(user, LoginDTO.class);
         userDto.setSession_key(response.getSession_key());
