@@ -1,0 +1,21 @@
+docker network:
+    name: book
+    IPV4 Subnet: 193.168.10.0/24
+    IPV4 Gateway - 193.168.10.1
+
+book_db:  mysql -> mysql
+    username: book
+    password: book
+    193.168.10.2
+    host: book_db
+
+book_api_server: api, -> tomcat,8010,193.168.10.3
+book_manage_server: tomcat,8020,8010,193.168.10.4
+
+
+qidong jiaoben:/
+java -jar target/itbook-0.0.1-SNAPSHOT.jar  --spring.profiles.active=prod
+build
+
+docker start:
+docker run --
