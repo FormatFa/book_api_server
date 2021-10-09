@@ -83,17 +83,17 @@ ENGINE = InnoDB;
 -- Table `book`.`book_shelf`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `book`.`book_shelf` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL,
-  `book_id` INT NULL,
-  PRIMARY KEY (`id`),
+  `user_id` INT NOT NULL,
+  `book_id` INT NOT NULL,
+  `add_time` DATETIME NULL,
   INDEX `fk_book_id_idx` (`book_id` ASC),
   INDEX `fk_user_id_idx` (`user_id` ASC),
+  PRIMARY KEY (`book_id`, `user_id`),
   CONSTRAINT `fk_book_shelf_id`
     FOREIGN KEY (`book_id`)
     REFERENCES `book`.`book` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_user_shelf_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `book`.`user` (`id`)
@@ -116,11 +116,12 @@ ENGINE = InnoDB;
 -- Table `book`.`book_chapter`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `book`.`book_chapter` (
+  `chapter_id` INT NOT NULL AUTO_INCREMENT,
   `book_id` INT NOT NULL,
-  `chapter_id` INT NOT NULL,
   `content` TEXT NULL,
   `price` INT NULL,
-  PRIMARY KEY (`book_id`, `chapter_id`))
+  `title` VARCHAR(45) NULL,
+  PRIMARY KEY (`chapter_id`, `book_id`))
 ENGINE = InnoDB;
 
 
@@ -134,7 +135,91 @@ CREATE TABLE IF NOT EXISTS `book`.`buy_record` (
   `buy_time` DATETIME NULL,
   `cost` INT NULL,
   `balance` INT NULL,
+  `summary` VARCHAR(45) NULL,
   PRIMARY KEY (`user_id`, `book_id`, `chapter_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`check_in`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`check_in` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL,
+  `check_in_time` DATETIME NULL,
+  `add_point` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`user_friend`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`user_friend` (
+  `user_id` INT NOT NULL,
+  `friend_id` INT NULL,
+  `add_time` DATETIME NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `fk_user_friend_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `book`.`user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`message`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`message` (
+  `id` INT NOT NULL,
+  `sender` INT NULL,
+  `receiver` INT NULL,
+  `content` VARCHAR(300) NULL,
+  `send_time` DATE NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`collection`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`collection` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`book_collection`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`book_collection` (
+  `collection_id` INT NOT NULL,
+  `book_id` INT NOT NULL,
+  PRIMARY KEY (`collection_id`, `book_id`),
+  INDEX `fk_book_bookid_idx` (`book_id` ASC),
+  CONSTRAINT `fk_bc_collection`
+    FOREIGN KEY (`collection_id`)
+    REFERENCES `book`.`collection` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_book_bookid`
+    FOREIGN KEY (`book_id`)
+    REFERENCES `book`.`book` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `book`.`content`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `book`.`content` (
+  `book_id` INT NOT NULL,
+  `chapter_id` VARCHAR(45) NOT NULL,
+  `content` TEXT NULL,
+  PRIMARY KEY (`book_id`, `chapter_id`))
 ENGINE = InnoDB;
 
 

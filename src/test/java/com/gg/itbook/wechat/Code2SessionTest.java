@@ -16,12 +16,12 @@ public class Code2SessionTest {
         assertNotEquals(ErrorCode.SUCCESS,response.getErrcode());
         assertEquals(ErrorCode.CODE_INVALID,response.getErrcode());
     }
-    @Test
-    public void givenCode_should_correct() throws IOException, URISyntaxException {
-        WeChatCode2SessionResponse response= WeChatLogin.code2Session(new WeChatCode2SessionReq("wx06be867d6a00b665","7e806821edfe6958191c59ec2ca81964","081myh1w3XWZaX2sNy3w3NbG7y0myh1m","authorization_code"));
-        assertNull(response.getErrcode());
-        assertNotNull(response.getSession_key(),"session key not null");
-        assertNotNull(response.getOpenid(),"open should not null");
-    }
+//    @Test
+//    public void givenCode_should_correct() throws IOException, URISyntaxException {
+//        WeChatCode2SessionResponse response= WeChatLogin.code2Session(new WeChatCode2SessionReq("wx06be867d6a00b665","7e806821edfe6958191c59ec2ca81964","081myh1w3XWZaX2sNy3w3NbG7y0myh1m","authorization_code"));
+//        assertNull(response.getErrcode());
+//        assertNotNull(response.getSession_key(),"session key not null");
+//        assertNotNull(response.getOpenid(),"open should not null");
+//    }
 
 }

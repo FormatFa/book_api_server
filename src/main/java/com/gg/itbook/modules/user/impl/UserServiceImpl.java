@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     public LoginDTO login(String email, String password) {
 //        TODO filter sql injection
         User user = userMapper.findUserByEmail(email);
-        if(!SecurityTool.checkPassword(password,user.getPassword())) {
+        if(Objects.isNull(user) ||!SecurityTool.checkPassword(password,user.getPassword())) {
             throw new IdentityErrorException(email);
         }
         LoginDTO userDto = modelMapper.map(user, LoginDTO.class);
