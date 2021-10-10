@@ -9,6 +9,13 @@ book_db:  mysql -> mysql
     193.168.10.2
     host: book_db
 
+book_db:  postgre
+    POSTGRES_PASSWORD : book
+    POSTGRES_USER: book
+    POSTGRES_DB: book
+    ipv4: 193.168.10.5
+    host: book_postgre
+
 book_api_server: api, -> tomcat,8010,193.168.10.3
 book_manage_server: tomcat,8020,8010,193.168.10.4
 

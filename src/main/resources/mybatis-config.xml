@@ -11,4 +11,5 @@
         <typeAlias type="com.gg.itbook.modules.book.model.BuyRecord" alias="BuyRecord"/>
         <typeAlias type="com.gg.itbook.modules.shelf.ShelfItem" alias="ShelfItem"/>
     </typeAliases>
+
 </configuration>
