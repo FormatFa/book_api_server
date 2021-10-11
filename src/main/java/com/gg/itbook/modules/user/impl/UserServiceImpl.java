@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(email);
         user.setPassword(SecurityTool.hashPassword(password));
         user.setCoin(99999);
+        user.setNickname("用户");
 
         userMapper.saveUser(user);
     }

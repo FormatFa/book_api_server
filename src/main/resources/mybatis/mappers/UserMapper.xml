@@ -22,7 +22,7 @@
 
     <insert id="saveUser"
             parameterType="com.gg.itbook.modules.user.User">
-        insert into <include refid="userTable"/>(openid,email,password)  values(#{openid},#{email},#{password});
+        insert into <include refid="userTable"/>(openid,email,password,coin,nickname)  values(#{openid},#{email},#{password},#{coin},#{nickname});
     </insert>
     <update id="updateCoin">
         update <include refid="userTable"/> set coin = #{coin} where id=#{user_id}
