@@ -1,0 +1,4 @@
+LOAD DATABASE
+   FROM mysql://book:book@193.168.10.2/book
+   INTO pgsql://book:book@193.168.10.5/book
+ALTER schema 'book' rename to 'public';
