@@ -14,3 +14,6 @@ TOOD:
 - [ ] 分类管理
 - [ ] 书本简介
 
+### Quickly Start
+
+docker-compose up -d

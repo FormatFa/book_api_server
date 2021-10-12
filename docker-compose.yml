@@ -1,0 +1,12 @@
+services:
+  book-api-db:
+    build: ./deploy/db
+    ports:
+      - "33066:3306"
+  book-api-server:
+    build: .
+    ports:
+      - "8010:8010"
+    depends_on:
+      - "book-api-db"
+
