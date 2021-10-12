@@ -17,5 +17,7 @@ public class ItbookApplication implements ApplicationContextAware {
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		System.out.println("profile:"+applicationContext.getEnvironment().getProperty("profile.name"));
+		System.out.println("wechat mini appid:"+applicationContext.getEnvironment().getProperty("wechat.mini.appid"));
+		System.out.println("wechat mini secret:"+applicationContext.getEnvironment().getProperty("wechat.mini.secret"));
 	}
 }
