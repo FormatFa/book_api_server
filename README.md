@@ -15,10 +15,12 @@ TOOD:
 - [ ] 书本简介
 
 ### Quickly Start
-
+#### 普通启动
 - 设置微信小程序环境变量
   
   export WECHAT_MINI_APPID=xxx
   export WECHAT_MINI_SECRET=yyy
-
+#### Docker-Compose
+环境变量设置：
+vi deploy/docker/book_api_server.env
 docker-compose up -d
