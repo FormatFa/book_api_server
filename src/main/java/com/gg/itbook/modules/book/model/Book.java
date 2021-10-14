@@ -8,8 +8,16 @@ public class Book {
     private int category;
     private String status;
     private int word_count;
-
+    private String description;
     public Book() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

@@ -17,7 +17,6 @@ TOOD:
 ### Quickly Start
 #### 普通启动
 - 设置微信小程序环境变量
-  
   export WECHAT_MINI_APPID=xxx
   export WECHAT_MINI_SECRET=yyy
 #### Docker-Compose

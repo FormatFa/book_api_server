@@ -9,6 +9,11 @@
     <select id="findBooksByCategory" resultType="Book">
         select * from book where category in (select id from book_category where parent_id=#{category_id}) ;
     </select>
+    <select id="findBookById" resultType="Book">
+        select * from book where id=#{book_id} limit 1;
+    </select>
+
+
     <select id="findChaptersByBookId" resultType="Chapter">
         select
         <include refid="chapter"/>
@@ -30,8 +35,6 @@
         on c.chapter_id=r.chapter_id and c.book_id=r.book_id
         where c.book_id=#{book_id};
     </select>
-    <select id="findBookById" resultType="Book">
-        select * from book where id=#{book_id} limit 1;
-    </select>
+
 
 </mapper>
