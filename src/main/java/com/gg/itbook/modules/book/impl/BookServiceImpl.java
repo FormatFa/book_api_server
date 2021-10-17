@@ -1,5 +1,6 @@
 package com.gg.itbook.modules.book.impl;
 
+import com.gg.itbook.common.enums.CoinUseType;
 import com.gg.itbook.common.exception.BalanceInSufficientException;
 import com.gg.itbook.common.exception.BusinessException;
 import com.gg.itbook.common.exception.EntityNotFoundException;
@@ -129,7 +130,7 @@ public class BookServiceImpl implements BookService {
                 throw new BalanceInSufficientException(chapter.getPrice(), login.getCoin());
             }
             Book book = getBookById(book_id);
-            UseCoinDTO useCoinDTO =  userService.useCoin(user_id,chapter.getPrice());
+            UseCoinDTO useCoinDTO =  userService.useCoin(user_id,-chapter.getPrice(), CoinUseType.BUY_CHAPTER);
             String summary = String.format("%s-%s",book.getName(),chapter.getTitle());
             buyRecordMapper.addBuyRecord(new BuyRecord(user_id,book_id,chapter_id, Timestamp.from(Instant.now()),chapter.getPrice(),useCoinDTO.getBalance().getCoin(),summary));
             return  useCoinDTO.getBalance();

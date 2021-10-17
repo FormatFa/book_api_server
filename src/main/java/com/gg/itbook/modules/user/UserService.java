@@ -1,5 +1,6 @@
 package com.gg.itbook.modules.user;
 
+import com.gg.itbook.common.enums.CoinUseType;
 import com.gg.itbook.modules.user.dto.LoginDTO;
 import com.gg.itbook.modules.user.dto.UseCoinDTO;
 
@@ -11,6 +12,6 @@ public interface UserService {
 
     LoginDTO login(String email, String password);
     int  charge(int  user_id,int addCoin);
-    UseCoinDTO useCoin(int  user_id, int coin);
+    UseCoinDTO useCoin(int  user_id, int coin, CoinUseType coinUseType);
 
 }

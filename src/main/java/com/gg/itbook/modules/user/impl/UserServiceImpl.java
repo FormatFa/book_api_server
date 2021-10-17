@@ -1,5 +1,6 @@
 package com.gg.itbook.modules.user.impl;
 
+import com.gg.itbook.common.enums.CoinUseType;
 import com.gg.itbook.common.exception.BalanceInSufficientException;
 import com.gg.itbook.common.exception.IdentityErrorException;
 import com.gg.itbook.common.exception.UserExistsException;
@@ -87,12 +88,12 @@ public class UserServiceImpl implements UserService {
     // TODO add cost record
     @Transactional(propagation = Propagation.MANDATORY)
     @Override
-    public UseCoinDTO useCoin(int  user_id, int coin) {
+    public UseCoinDTO useCoin(int  user_id, int coin, CoinUseType coinUseType) {
         LoginDTO login = findUserById(user_id);
         if(login.getCoin()<coin){
             throw new BalanceInSufficientException(coin, login.getCoin());
         }
-        int newCoin = login.getCoin()-coin;
+        int newCoin = login.getCoin()+coin;
         this.userMapper.updateCoin(user_id,newCoin);
         login = findUserById(user_id);
         return new UseCoinDTO(Coin.from(login.getCoin()));
